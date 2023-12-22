@@ -1,5 +1,8 @@
 <?php
 
+require_once("vendor/autoload.php");
+require_once("phpunit_firstruner/loader.php");
+
 use Doctrine\Common\Annotations\UnitTestAnnotation;
 
 /**
