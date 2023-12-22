@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /*
- * This file is part of PHPUnit.
+ * This file is part of PHPUnit Extension.
  *
  * (c) Firstruner <contact@firstruner.fr>
  *
@@ -22,6 +22,14 @@ use PHPUnit\TextUI\TestRunner_Firstruner;
  */
 class Command_Firstruner extends Command
 {
+    /**
+     * Create a TestRunner, override in subclasses.
+     */
+    protected function createRunner_Firstruner(): TestRunner_Firstruner
+    {
+        return new TestRunner_Firstruner($this->arguments['loader']);
+    }
+
     /**
      * @throws Exception
      */
@@ -77,13 +85,5 @@ class Command_Firstruner extends Command
         }
 
         return $return;
-    }
-
-     /**
-     * Create a TestRunner, override in subclasses.
-     */
-    protected function createRunner_Firstruner(): TestRunner_Firstruner
-    {
-        return new TestRunner_Firstruner($this->arguments['loader']);
     }
 }

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-use Firstruner\cli_colors;
+use Firstruner\Commons\CLI\cli_colors;
 use PHPUnit\TextUI\DefaultResultPrinter;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Test;
@@ -96,16 +96,23 @@ class ResultPrinter_firstruner extends DefaultResultPrinter
       {
             return ($this->getClass($element))->getClassMemoryLimit();
       }
+      
+      private function GetClassTimeLimit($element)
+      {
+            return ($this->getClass($element))->getClassTimeLimit();
+      }
 
       protected function printHeader(TestResult $result): void
       {
             $memoryLimit = $this->GetClassMemoryLimit($this->currentTest->providedTests[0]);
+            $timeLimit = $this->GetClassTimeLimit($this->currentTest->providedTests[0]);
 
             if (count($result) > 0) {
                   $this->write(PHP_EOL . PHP_EOL .
                         (new ResourceUsageFormatter_Firstruner)->resourceUsage(
                               $this->timer->stop(),
-                              $memoryLimit
+                              $memoryLimit,
+                              $timeLimit
                         )
                         . PHP_EOL . PHP_EOL);
             }

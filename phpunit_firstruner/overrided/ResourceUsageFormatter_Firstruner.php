@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of PHPUnit.
+ * This file is part of PHPUnit extension.
  *
  * (c) Firstruner <contact@firstruner.fr>
  *
@@ -10,7 +10,7 @@
 
 namespace SebastianBergmann\Timer;
 
-use Firstruner\cli_colors;
+use Firstruner\Commons\CLI\cli_colors;
 
 use function is_float;
 use function memory_get_peak_usage;
@@ -28,19 +28,33 @@ final class ResourceUsageFormatter_Firstruner
         'KB' => 1024,
     ];
 
-    public function resourceUsage(Duration $duration, int $limitAllowed): string
+    public function resourceUsage(Duration $duration,
+        int $limitAllowed = 0, int $timeAllowed = 0): string
     {
+        $timeExecution = $duration->asSeconds();
         $memUsage = memory_get_peak_usage(true);
+        $memExceed = ($limitAllowed > 0) && ($limitAllowed < $memUsage);
+        $timeExceed = ($timeAllowed > 0) && ($timeAllowed < $timeExecution);
 
         return
             "╔════════════════════════════════════╗" . PHP_EOL .
             "║               RESUME               ║" . PHP_EOL .
             "╚════════════════════════════════════╝" . PHP_EOL .
             "  ► " . cli_colors::GetColoredText(
-            (($limitAllowed > 0) && ($limitAllowed < $memUsage)
+            ($memExceed || $timeExceed
                 ? cli_unittest_memoryexceed
                 : cli_reset),
-            "Temps: {$duration->asString()}, Memoire: {$this->bytesToString($memUsage)}"
+            "Temps: {$duration->asString()}, Memoire: {$this->bytesToString($memUsage)}" .
+            PHP_EOL .
+            ($memExceed
+                ? "     └ Memoire max attendue : " . $this->bytesToString($limitAllowed)
+                : "") .
+            ($timeExceed
+                ? ($memExceed ? "; " : "") .
+                 "     └ Temps d'exécution attendu : " .
+                    (Duration::fromMicroseconds($timeAllowed * 1000000))
+                        ->asString()
+                : "")
             );
     }
 

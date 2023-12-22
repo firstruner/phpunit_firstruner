@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of PHPUnit.
+ * This file is part of PHPUnit extension.
  *
  * (c) Firstruner <contact@firstruner.fr>
  *
@@ -28,6 +28,7 @@ class UnitTestAnnotation
       public string $description = "";
 
       public int $memoryLimit = 0;
+      public int $executionTimeLimit = 0;
 
       public function __construct(array $values)
       {

@@ -1,7 +1,6 @@
 <?php
 
 require_once("vendor/autoload.php");
-require_once("phpunit_firstruner/loader.php");
 
 use Doctrine\Common\Annotations\UnitTestAnnotation;
 
@@ -11,7 +10,8 @@ use Doctrine\Common\Annotations\UnitTestAnnotation;
  * description="Test des annotations",
  * item="Annotation",
  * element="Class",
- * memoryLimit=4000000)
+ * memoryLimit=8000000,
+ * executionTimeLimit=1)
  */
 class AnnotationTest extends TestCase_Firstruner
 {
@@ -24,7 +24,7 @@ class AnnotationTest extends TestCase_Firstruner
       }
 
       /**
-       * @UnitTestAnnotation(name="Test1", description="Test aussi en essai", item="Fizz", element="MethodBis")
+       * @UnitTestAnnotation(name="Test1", description="Test aussi en essai", item="Fizz", element="MethodBis", executionTimeLimit=1)
        */
       public function test_MethodBis()
       {

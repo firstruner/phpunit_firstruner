@@ -1,10 +1,18 @@
 <?php
+/*
+ * This file is part of PHPUnit extension.
+ *
+ * (c) Firstruner <contact@firstruner.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Firstruner\cli_colors;
+use Doctrine\Common\Annotations\UnitTestAnnotation;
+use Firstruner\Commons\CLI\cli_colors;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestResult;
-use Doctrine\Common\Annotations\UnitTestAnnotation;
 
 class TestCase_Firstruner extends TestCase
 {
@@ -12,6 +20,44 @@ class TestCase_Firstruner extends TestCase
        * @var null|list<ExecutionOrderDependency>
        */
       public $providedTests;
+
+      // Méthode appelée une seule fois avant le début de la classe de test
+      public static function setUpBeforeClass(): void
+      {
+            $maintitle = TestCase_Firstruner::genMainTitle(get_called_class());
+
+            echo cli_colors::GetColoredText(
+                  ($maintitle == ""
+                        ? cli_reset
+                        : cli_unittest),
+                  $maintitle
+            ) . PHP_EOL;
+
+            parent::setUpBeforeClass();
+      }
+
+      private function searchAnnoInAnnots($annots)
+      {
+            foreach ($annots as $annot)
+                  if ($annot instanceof UnitTestAnnotation)
+                        return $annot;
+
+            return null;
+      }
+
+      private function getClassUTAnnotations()
+      {
+            $annots = (new AnnotationReader())
+                  ->getClassAnnotations(new ReflectionClass($this));
+
+            return $this->searchAnnoInAnnots($annots);
+      }
+
+      private static function genMainTitle($class)
+      {
+            $annots = (new $class())->getClassUTAnnotations();
+            return $annots == null ? "" : $annots->GenerateTitle();
+      }
 
       private function getMethodAnnotations($methodName)
       {
@@ -35,21 +81,10 @@ class TestCase_Firstruner extends TestCase
             return ($this->searchAnnoInAnnots($annots))->GetDescription();
       }
 
-      private function searchAnnoInAnnots($annots)
+      public function GetMethodTimeLimit($methodName)
       {
-            foreach ($annots as $annot)
-                  if ($annot instanceof UnitTestAnnotation)
-                        return $annot;
-
-            return null;
-      }
-
-      private function getClassUTAnnotations()
-      {
-            $annots = (new AnnotationReader())
-                  ->getClassAnnotations(new ReflectionClass($this));
-
-            return $this->searchAnnoInAnnots($annots);
+            $annots = $this->getMethodAnnotations($methodName);
+            return ($this->searchAnnoInAnnots($annots))->executionTimeLimit;
       }
 
       public function getClassMemoryLimit()
@@ -58,10 +93,10 @@ class TestCase_Firstruner extends TestCase
             return $annots == null ? 0 : $annots->memoryLimit;
       }
 
-      private static function genMainTitle($class)
+      public function getClassTimeLimit()
       {
-            $annots = (new $class())->getClassUTAnnotations();
-            return $annots == null ? "" : $annots->GenerateTitle();
+            $annots = $this->getClassUTAnnotations();
+            return $annots == null ? 0 : $annots->executionTimeLimit;
       }
 
       public function genStaticMainTitle()
@@ -69,24 +104,12 @@ class TestCase_Firstruner extends TestCase
             return TestCase_Firstruner::genMainTitle($this);
       }
 
-      // Méthode appelée une seule fois avant le début de la classe de test
-      public static function setUpBeforeClass(): void
-      {
-            $maintitle = TestCase_Firstruner::genMainTitle(get_called_class());
-
-            echo cli_colors::GetColoredText(
-                  ($maintitle == ""
-                        ? cli_reset
-                        : cli_unittest),
-                  $maintitle
-            ) . PHP_EOL;
-
-            parent::setUpBeforeClass();
-      }
-
       public function run(TestResult $result = null): TestResult
       {
+            //echo "Run-start";
             $this->setPreserveGlobalState(false);
-            return parent::run($result);
+            $result = parent::run($result);
+            //echo "Run-end";
+            return $result;
       }
 }

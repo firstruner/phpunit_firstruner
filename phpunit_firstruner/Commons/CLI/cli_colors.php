@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of PHPUnit.
+ * This file is part of PHPUnit extension.
  *
  * (c) Firstruner <contact@firstruner.fr>
  *
@@ -9,7 +9,7 @@
  */
 
 
-namespace Firstruner;
+namespace Firstruner\Commons\CLI;
 
 class cli_colors
 {

@@ -1,13 +1,12 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of PHPUnit.
+ * This file is part of PHPUnit extension.
  *
  * (c) Firstruner <contact@firstruner.fr>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace PHPUnit\TextUI;
 
 use const PHP_EOL;
@@ -33,7 +32,7 @@ use function sprintf;
 use function time;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestResult;
-use PHPUnit\Framework\TestSuite;
+//use PHPUnit\Framework\TestSuite;
 use PHPUnit\Runner\AfterLastTestHook;
 use PHPUnit\Runner\BaseTestRunner;
 use PHPUnit\Runner\BeforeFirstTestHook;
@@ -83,8 +82,8 @@ use SebastianBergmann\Comparator\Comparator;
 use SebastianBergmann\Environment\Runtime;
 use SebastianBergmann\Invoker\Invoker;
 use SebastianBergmann\Timer\Timer;
+
 use PHPUnit\Framework\TestSuite_Firstruner;
-use PHPUnit\TextUI\XmlConfiguration\PHPUnit;
 use ResultPrinter_firstruner;
 
 /**
@@ -1136,7 +1135,7 @@ final class TestRunner_Firstruner extends BaseTestRunner
         }
     }
 
-    private function processSuiteFilters(TestSuite $suite, array $arguments): void
+    private function processSuiteFilters(TestSuite_Firstruner $suite, array $arguments): void
     {
         if (!$arguments['filter'] &&
             empty($arguments['groups']) &&
