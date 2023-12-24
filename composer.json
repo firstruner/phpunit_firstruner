@@ -18,8 +18,10 @@
         "phpunit/phpunit": "^9.6",
         "doctrine/annotations": "^2.0"
     },
-	"minimum-stability": [
-		"dev",
-		"stable",
-	]
+	"require-dev": {
+        "php": ">=7.4.22",
+        "phpunit/phpunit": "^9.6",
+        "doctrine/annotations": "^2.0"
+    },
+	"minimum-stability": "dev"| "alpha"| "beta"| "RC"|"stable",
 }
