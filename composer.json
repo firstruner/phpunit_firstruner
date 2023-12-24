@@ -12,6 +12,10 @@
             "role": "Developer"
         }
     ],
+	"minimum-stability": "dev",
     "require": {
+        "php": ">=7.4.22",
+        "phpunit/phpunit": "^9.6",
+        "doctrine/annotations": "^2.0"
     }
 }
