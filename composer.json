@@ -3,7 +3,7 @@
     "description": "This is an PHPUnit extension to have a newer CLI result prompting and also add alert on memory and time consuming",
     "keywords": ["phpunit", "firstruner", "unittest", "unit", "test", "color"],
     "homepage": "https://firstruner.fr",
-    "license": "MIT",
+    "license": "proprietary",
 	"type": "library",
     "authors": [
         {
@@ -23,5 +23,5 @@
         "phpunit/phpunit": "^9.6",
         "doctrine/annotations": "^2.0"
     },
-	"minimum-stability": "dev"| "alpha"| "beta"| "RC"|"stable",
+	"minimum-stability": "dev",
 }
