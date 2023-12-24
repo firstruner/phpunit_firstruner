@@ -23,12 +23,12 @@
     ],
     "require": {
         "php": ">=7.4",
-        "phpunit/phpunit": "^9.6",
-        "doctrine/annotations": "^2.0"
+        "phpunit/phpunit": ">=9.6",
+        "doctrine/annotations": ">=2.0"
     },
     "require-dev": {
         "php": ">=7.4",
-        "phpunit/phpunit": "^9.6",
-        "doctrine/annotations": "^2.0"
+        "phpunit/phpunit": ">=9.6",
+        "doctrine/annotations": ">=2.0"
     }
 }
