@@ -1,1 +1,1 @@
-{"version":1,"defects":{"AnnotationTest::test_MethodBis":3},"times":{"AnnotationTest::test_MethodOne":0.009,"AnnotationTest::test_MethodBis":0.003}}
+{"version":1,"defects":{"AnnotationTest::test_MethodBis":3},"times":{"AnnotationTest::test_MethodOne":0.008,"AnnotationTest::test_MethodBis":0.003}}
