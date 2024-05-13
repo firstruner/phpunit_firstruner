@@ -1,3 +1,4 @@
+
 # PHPUnit Firstruner
 
 Hi, I'm Christophe and I got tired of having a display that was too reductive with PHPUnit.
@@ -9,7 +10,8 @@ So I build an extension for PHPUnit that give a result about unit test more beau
 ## Call reference
 
 Simply ! You must call the reference to "Doctrine\Common\Annotations\UnitTestAnnotation" like this :
-`use Doctrine\Common\Annotations\UnitTestAnnotation;`
+
+    use Doctrine\Common\Annotations\UnitTestAnnotation;
 
 ## Parameters
 
@@ -37,40 +39,41 @@ The value is expressed in seconds
 
 Just add UnitTestAnnotation to your class and herits of TestCase_Firstruner instead of TestCase, like this :
 
-`/**`
-`* @UnitTestAnnotation(`
-`* name="Annotation",`
-`* description="Test des annotations",`
-`* item="Annotation",`
-`* element="Class",`
-`* memoryLimit=8000000,`
-`* executionTimeLimit=1)`
-`*/`
-`class  AnnotationTest  extends  TestCase_Firstruner`
-`{`
-`...[Your tests codes]...`
-`}`
+    /**
+    * @UnitTestAnnotation(
+    * name="Annotation",
+    * description="Test des annotations",
+    * item="Annotation",
+    * element="Class",
+    * memoryLimit=8000000,
+    * executionTimeLimit=1)
+    */
+    class  AnnotationTest  extends  TestCase_Firstruner
+    {
+    ...[Your tests codes]...
+    }
 
 ## Parameter a test
 
 Just add UnitTestAnnotation to your test function, like this :
 
-`/**`
-`* @UnitTestAnnotation(`
-`* name="This is a test",`
-`* description="Annotation about method",`
-`* item="Annotation",`
-`* element="Function",`
-`* executionTimeLimit=2)`
-`*/`
-`class  AnnotationTest  extends  TestCase_Firstruner`
-`{`
-`...[Your tests codes]...`
-`}`
+    /**
+    * @UnitTestAnnotation(
+    * name="This is a test",
+    * description="Annotation about method",
+    * item="Annotation",
+    * element="Function",
+    * executionTimeLimit=2)
+    */
+    class  AnnotationTest  extends  TestCase_Firstruner
+    {
+    ...[Your tests codes]...
+    }
 
 ## How run test
 Like PHPUnit but with some change :
-`php "phpunit_firstruner/phpunit_firstruner" [..Your common parameters, files, directories..]`
+
+    php "phpunit_firstruner/phpunit_firstruner" [..Your common parameters, files, directories..]
 
 # Result
 ![enter image description here](https://gitlab.com/firstruner/unittest_firstruner/-/raw/master/Preview.jpg)
